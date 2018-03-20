@@ -1,0 +1,147 @@
+<html>
+
+<head>
+    <title> Vote Server </title>
+    <!-- Libs including -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- js -->
+    <script src="app.js"></script>
+</head>
+
+<body>
+    <h2 style="text-align: center;color: #004282;">Live Voting</h2>
+    <div id="panel" style="
+                box-shadow: 0 7px 10px -5px #000;
+                width: 50%;
+                background: #004282;
+                top: 10%;
+                position: absolute;
+                left: 25%;
+                color: #fff;
+                padding: 20px;
+            ">
+        <h3>Option 1 -
+            <span class="users" style="color: #27f0f8;">
+                <span id="countOption1" style="color: #00f9f9;">0</span> Users </span>
+        </h3>
+        <div id="option1" style="
+                width: 100%;
+                background: #0157aa;
+                height: 30px;
+                padding: 5px;
+            ">
+
+            <div style="
+            background: #fff;
+            width: 1%;
+            height: 100%;
+            transition: all .5s;
+            -webkit-transform-origin-x: right;
+        ">
+            </div>
+
+        </div>
+        <h3>Option 2 -
+            <span class="users" style="color: #27f0f8;">
+                <span id="countOption2" style="color: #00f9f9;">0</span> Users </span>
+        </h3>
+        <div id="option2" style="
+                width: 100%;
+                background: #0157aa;
+                height: 30px;
+                padding: 5px;
+            ">
+
+            <div style="
+            background: #fff;
+            width: 1%;
+            height: 100%;
+            transition: all .5s;
+            -webkit-transform-origin-x: right;
+        ">
+            </div>
+
+        </div>
+
+        <h3 style="color: #27f0f8;width: 50%;float: left;"> Users Joined:
+            <span id="totalValue">0</span>
+        </h3>
+
+        <button id="resetRoom" class="btn btn-primary" style="
+        float: right;
+        margin-top: 15px;
+        padding: 10px;
+        border: 0;
+    "> Reset </button>
+
+        <div>
+            <h4 style="width:100%;float:left">Comments</h4>
+            <textarea style="min-height: 200px;" class="form-control" id="textArea"></textarea>
+        </div>
+
+
+    </div>
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+            position: absolute;
+            left: 45%;
+            top: 20%;
+        }
+
+        #overlay {
+            top: 0;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            background: #bababa;
+            opacity: 0.3;
+        }
+
+        #sloader {
+            display: none;
+        }
+
+        /* Safari */
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <div id="sloader">
+        <div class="loader">
+        </div>
+        <div id="overlay"></div>
+    </div>
+</body>
+
+</html>

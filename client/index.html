@@ -1,0 +1,312 @@
+<html>
+
+<head>
+    <title> Vote Client </title>
+    <!-- Libs including -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <!-- jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- js -->
+    <script src="app.js"></script>
+</head>
+
+<body style="font-family: monospace;">
+    <h1 style="text-align: center;color:#004282">Live Voting</h1>
+    <script src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.js" integrity="sha256-6HSLgn6Ao3PKc5ci8rwZfb//5QUu3ge2/Sw9KfLuvr8="
+        crossorigin="anonymous"></script>
+
+    <div class="page" id="panel_submit">
+        <div class="cnt">
+            <!-- <div class="tab">
+                <button class="tablinks active" onclick="openCity(event, 'London')">Vote</button>
+                <button class="tablinks" onclick="openCity(event, 'Paris')">Debate</button>
+                <button class="tablinks" onclick="openCity(event, 'Tokyo')">Queries</button>
+            </div> -->
+            <div id="London" class="tabcontent" style="display:block">
+                <div class="imgs vil">
+                </div>
+                <ul>
+                    <li class="li-vil active">Option 1</li>
+                    <li class="li-city">Option 2</li>
+                </ul>
+                <p class="first">Select a option which you feel comfortable</p>
+                <textarea placeholder="Comments" id="txtValue"></textarea>
+                <button id="submit_vote">Submit</button>
+            </div>
+            <div id="Paris" class="tabcontent">
+                <h1>Debate</h1>
+            </div>
+            <div id="Tokyo" class="tabcontent">
+                <h1>Queries</h1>
+            </div>
+        </div>
+    </div>
+
+    <div id="panel_submitted" class="cnt">
+        <h1>Response Submitted !</h1>
+    </div>
+
+    <style type="text/css">
+        .tablinks {
+            width: 33%;
+            color: #fff;
+        }
+
+        /* Style the tab */
+
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #004282;
+        }
+
+        /* Style the buttons inside the tab */
+
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        /* Change background color of buttons on hover */
+
+        .tab button:hover {
+            background-color: #0af;
+        }
+
+        /* Create an active/current tablink class */
+
+        .tab button.active {
+            background-color: #0af;
+        }
+
+        /* Style the tab content */
+
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            -webkit-animation: fadeEffect 1s;
+            animation: fadeEffect 1s;
+        }
+
+        /* Fade in tabs */
+
+        @-webkit-keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeEffect {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        #txtValue {
+            width: 100%;
+            margin: 10px;
+        }
+
+        #panel_submitted {
+            color: #fff;
+            width: 340px;
+        }
+
+        .site-link {
+            font-family: roboto;
+            padding: 5px 15px;
+            position: fixed;
+            z-index: 99999;
+            background: #303030;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
+            right: 30px;
+            bottom: 30px;
+            border-radius: 10px;
+        }
+
+        .site-link a {
+            text-decoration: none;
+            color: #0af !important;
+            transform: translateY(-8px);
+            display: inline-block;
+        }
+
+        .site-link img {
+
+            transform: translateY(10px);
+            width: 30px;
+            height: 30px;
+        }
+
+        .cnt {
+            font-family: sans-serif;
+            width: 300px;
+            margin: 50px auto;
+            padding: 50px;
+            background: #004282;
+            box-shadow: 0 7px 10px -5px #000;
+            transition: all .5s;
+        }
+
+        /* line 10, ../sass/shared/_android.scss */
+
+        .cnt p.first {
+            text-align: center;
+            color: #fff;
+            line-height: 30px;
+            font-size: 14px;
+            margin: 10px 10px;
+        }
+
+        /* line 17, ../sass/shared/_android.scss */
+
+        #submit_vote {
+            display: block;
+            width: 150px;
+            height: 40px;
+            margin: auto;
+            background: #fff;
+            color: #000;
+            box-shadow: 0 7px 10px -5px #000;
+            font-size: 20px;
+            text-align: center;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+
+        /* line 29, ../sass/shared/_android.scss */
+
+        .cnt a:hover {
+            box-shadow: 0 5px 10px -5px #000;
+        }
+
+        /* line 34, ../sass/shared/_android.scss */
+
+        .cnt .imgs {
+            transition: all .5s;
+            background-size: 600px 135px;
+        }
+
+        /* line 36, ../sass/shared/_android.scss */
+
+        .cnt .imgs.vil {
+            width: 300px;
+            height: 135px;
+            background: url(http://main.buildabazaar.com/img/shrd/html_widget_images/28/06/077/07ea06ee2f4ce_vilcity.png.999xx.png) center left no-repeat;
+        }
+
+        /* line 41, ../sass/shared/_android.scss */
+
+        .cnt .imgs.city {
+            width: 300px;
+            height: 135px;
+            background: url(http://main.buildabazaar.com/img/shrd/html_widget_images/28/06/077/07ea06ee2f4ce_vilcity.png.999xx.png) center right no-repeat;
+        }
+
+        /* line 47, ../sass/shared/_android.scss */
+
+        .cnt ul {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            box-shadow: 0 7px 10px -5px #000;
+        }
+
+        /* line 53, ../sass/shared/_android.scss */
+
+        .cnt ul li {
+            cursor: pointer;
+            transition: all .5s;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            background: #0af;
+            color: #fff;
+            font-weight: bold;
+            border-bottom: solid 3px transparent;
+        }
+
+        /* line 63, ../sass/shared/_android.scss */
+
+        .cnt ul li.active {
+            border-color: #fff;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+            position: absolute;
+            left: 45%;
+            top: 20%;
+        }
+
+        #overlay {
+            top: 0;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            left: 0;
+            background: #bababa;
+            opacity: 0.3;
+        }
+
+        #sloader {
+            display: none;
+        }
+
+        /* Safari */
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <div id="sloader">
+        <div class="loader">
+        </div>
+        <div id="overlay"></div>
+    </div>
+</body>
+
+</html>

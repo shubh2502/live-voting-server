@@ -1,23 +1,27 @@
-var app = require('http').createServer(handler)
-var io = require('socket.io')(app);
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app); 
+var io = require('socket.io')(server);
 var fs = require('fs');
+var path = require('path');
 
-app.listen(4300, function () {
+server.listen(4300, function () {
     console.log('Server listening to port: 4300');
 });
 
-function handler(req, res) {
-    fs.readFile(__dirname + '/index.html',
-        function (err, data) {
-            if (err) {
-                res.writeHead(500);
-                return res.end('Error loading index.html');
-            }
+// server.listen(4300);
 
-            res.writeHead(200);
-            res.end(data);
-        });
-}
+app.use('/server',express.static(path.join(__dirname, 'server')));
+
+app.use('/client',express.static(path.join(__dirname, 'client')));
+
+app.get('/server', function (req, res) {
+    res.sendFile(__dirname + '/server/index.html');
+});
+
+app.get('/client', function (req, res) {
+    res.sendFile(__dirname + '/client/index.html');
+});
 
 var currentRoom = null, dataObj = {};
 
