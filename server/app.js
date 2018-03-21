@@ -93,7 +93,7 @@ var voteModule = (function () {
 
     var applyTotal = function () {
         socket.emit('getTotal', {}, function (data) {
-            totalValue = data;
+            totalValue = data > 50 ? 50 : data;
             $('#totalValue').text(data);
             applyCount();
         });
