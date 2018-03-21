@@ -1,7 +1,7 @@
 "use strict"
 
 $(function () {
-    var url = "http://http://blkchain.southeastasia.cloudapp.azure.com:4300";
+    var url = "http://blkchain.southeastasia.cloudapp.azure.com:4300";
 
     var socket = io(url);
 

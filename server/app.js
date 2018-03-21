@@ -3,7 +3,7 @@
 var voteModule = (function () {
     // Initial socket object
     var socket = {}, currentRoom = null, cnt1 = 0, cnt2 = 0, totalValue = 0, _comment = '';
-    var url = "http://http://blkchain.southeastasia.cloudapp.azure.com:4300";
+    var url = "http://blkchain.southeastasia.cloudapp.azure.com:4300";
 
     var initialValues = function () {
         $('#countOption1').text(cnt1);
